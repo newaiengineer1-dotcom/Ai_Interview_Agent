@@ -1,25 +1,44 @@
-# 🎯 InterviewAI — Modern AI Interview Coach
+InterviewAI — Commercial Dark AI Interview Coach
 
-A modern, non-technical-friendly Streamlit dashboard for AI-powered interview preparation.
+A modern Streamlit AI interview-preparation dashboard with a premium dark SaaS design.
 
-## Features
+What was fixed
 
-- Resume/CV upload: PDF, DOCX, TXT
-- Job Description upload
-- Resume/JD-aware retrieval using lightweight TF-IDF
-- AI-generated role-specific interview questions
-- Human-like interviewer styles
-- Technical, behavioral, system design, coding and mixed interview modes
-- Adaptive question flow based on candidate answers
-- Six-dimensional answer evaluation
-- Voice answers using Groq Whisper
-- Interview history with SQLite
-- Progress analytics
-- Clean, light, modern candidate dashboard
+Replaced the deprecated/removed llama-3.3-70b-versatile default with:
+openai/gpt-oss-120b
 
-## Project structure
+Added configurable model support through GROQ_LLM_MODEL
 
-```text
+Added friendly handling for API key, authentication, rate-limit and model availability errors
+
+Removed dependency on the missing code.html cockpit
+
+Added a self-contained commercial-style dark dashboard
+
+Main features
+
+Dashboard / readiness score
+
+Resume + Job Description upload
+
+TF-IDF evidence retrieval
+
+Adaptive AI interview questions
+
+Six-dimensional answer evaluation
+
+Voice interview using Groq Whisper
+
+Speaking/filler-word snapshot
+
+Progress radar analytics
+
+SQLite session history
+
+Modern dark SaaS UI
+
+Project structure
+
 InterviewAI/
 ├── app.py
 ├── requirements.txt
@@ -27,47 +46,45 @@ InterviewAI/
 ├── .gitignore
 └── .streamlit/
     └── config.toml
-```
 
-## Run locally
+Local setup
 
-```bash
 pip install -r requirements.txt
 streamlit run app.py
-```
 
-Set your Groq key:
+Set your API key:
 
-### Windows PowerShell
+Windows PowerShell
 
-```powershell
 $env:GROQ_API_KEY="your_key_here"
 streamlit run app.py
-```
 
-### Streamlit Cloud
+macOS/Linux
 
-1. Upload this project to GitHub.
-2. Create a new Streamlit app.
-3. Select `app.py` as the main file.
-4. Open **Settings → Secrets**.
-5. Add:
+export GROQ_API_KEY="your_key_here"
+streamlit run app.py
 
-```toml
+Streamlit Cloud
+
+In Manage app → Settings → Secrets, add:
+
 GROQ_API_KEY = "your_key_here"
-```
+GROQ_LLM_MODEL = "openai/gpt-oss-120b"
+GROQ_WHISPER_MODEL = "whisper-large-v3-turbo"
 
-6. Redeploy.
+Never commit API keys to GitHub.
 
-## AI models
+Why this UI direction?
 
-- Text generation/evaluation: `llama-3.3-70b-versatile`
-- Speech transcription: `whisper-large-v3-turbo`
+The dashboard uses a dark-first, quiet-chrome SaaS pattern: one primary readiness metric, progressive disclosure, restrained accent color, strong typography, and AI recommendations instead of a wall of charts.
 
-If your Groq account exposes different model names, update `LLM_MODEL` or `WHISPER_MODEL` at the top of `app.py`.
+Model
 
-## Important
+Default LLM:
 
-The dashboard intentionally hides technical implementation details from the candidate. RAG, retrieval, LLM orchestration and SQLite remain behind a simple user experience.
+openai/gpt-oss-120b
 
-Do not commit API keys or `.streamlit/secrets.toml` to GitHub.
+You can change it without editing the application:
+
+GROQ_LLM_MODEL = "openai/gpt-oss-120b"
+
